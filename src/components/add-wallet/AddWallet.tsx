@@ -30,7 +30,7 @@ const createAccount = async (currency: string): Promise<void> => {
     body: JSON.stringify({ currency }),
   });
   if (!response.ok) {
-    throw new Error('Could not create wallet. Please try again.');
+    throw new Error('Network Error');
   }
 };
 
@@ -79,15 +79,15 @@ const AddWalletForm: React.FC<AddWalletProps> = ({ onClose, onWalletAdded }) => 
   };
 
   return (
-    <div className="add-wallet-modal">
-      <div className="modal-header">
-        <h3>Add new wallet</h3>
-        <button onClick={onClose} className="modal-close-btn">&times;</button>
-      </div>
-      <p className="modal-info-text">
-        The crypto wallet will be created instantly and be available in your list of wallets.
-      </p>
-      <StatusContainer loading={loading} error={error} onRetry={loadWallets}>
+    <StatusContainer loading={loading} error={error} onRetry={loadWallets}>
+      <div className="add-wallet-modal">
+        <div className="modal-header">
+          <h3>Add new wallet</h3>
+          <button onClick={onClose} className="modal-close-btn">&times;</button>
+        </div>
+        <p className="modal-info-text">
+          The crypto wallet will be created instantly and be available in your list of wallets.
+        </p>
         <form onSubmit={handleCreateWallet} className="add-wallet-form">
           <label htmlFor="wallet-select" className="select-label">Select wallet</label>
           <select
@@ -102,13 +102,21 @@ const AddWalletForm: React.FC<AddWalletProps> = ({ onClose, onWalletAdded }) => 
               </option>
             ))}
           </select>
-          {createError && <div className="create-error-message">{createError}</div>}
           <button type="submit" disabled={isCreating} className="create-wallet-btn">
             {isCreating ? 'Creating...' : 'Create wallet'}
           </button>
+          {createError && (
+            <div className="create-error-container">
+              <div className="error-content">
+                <img src="/network-error.svg" alt="Error" className="error-icon-small" />
+                <span className="create-error-text">{createError}</span>
+              </div>
+              <button onClick={() => setCreateError(null)} className="error-close-btn">&times;</button>
+            </div>
+          )}
         </form>
-      </StatusContainer>
-    </div>
+      </div>
+    </StatusContainer>
   );
 };
 
