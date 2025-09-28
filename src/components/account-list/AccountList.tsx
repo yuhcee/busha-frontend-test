@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Loader from '../shared/Loader';
+
 type Account = {
-    id: number;
-    name: string;
+    id: string;
+    currency: string;
     balance: string;
+    name: string;
+    imgURL: string;
+    hold: string;
+    pending_balance: string;
+    type: string;
+    deposit: boolean;
+    payout: boolean;
 };
-const fetchAccounts = ()  : Promise<Account[]> => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (Math.random() > 0.5) {
-                reject(new Error('Network Error'));
-            } else {
-                resolve([
-                    { id: 1, name: 'Bitcoin', balance: '0.0025 BTC' },
-                    { id: 2, name: 'Ethereum', balance: '0.05 ETH' },
-                ]);
-            }
-        }, 1500);
-    });
+
+const fetchAccounts = async (): Promise<Account[]> => {
+    const response = await fetch('http://localhost:3090/accounts');
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
 };
 
 const AccountList = () => {
@@ -30,7 +32,7 @@ const AccountList = () => {
         setError(null);
         fetchAccounts()
             .then((data) => {
-                setAccounts(data as Account[]);
+                setAccounts(data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -61,10 +63,15 @@ const AccountList = () => {
 
     return (
         <div className="account-list">
-            {accounts.map((account: Account) => (
+            {accounts.map((account) => (
                 <div key={account.id} className="account-item">
-                    <span>{account.name}</span>
-                    <span>{account.balance}</span>
+                    <img src={account.imgURL} alt={account.name} />
+                    <div className="account-details">
+                        <span>{account.name}</span>
+                        <span>
+                            {account.balance} {account.currency}
+                        </span>
+                    </div>
                 </div>
             ))}
         </div>
