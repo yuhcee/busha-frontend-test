@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Loader from '../shared/Loader';
 import WalletCard from './WalletCard';
+import StatusContainer from '../shared/StatusContainer';
 
 type Account = {
   id: string;
@@ -18,7 +18,7 @@ type Account = {
 const fetchAccounts = async (): Promise<Account[]> => {
   const response = await fetch('http://localhost:3090/accounts');
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw new Error('Network Error');
   }
   return response.json();
 };
@@ -46,34 +46,14 @@ const AccountList = () => {
     loadAccounts();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="status-container">
-        <Loader size={84} width={8} />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="status-container">
-        <div className="account-list-error">
-          <img src="/error-icon.svg" alt="Error Icon" className="error-icon" />
-          <div className="error-message">{error}</div>
-          <button className="try-again-button" onClick={loadAccounts}>
-            Try again
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="wallet-cards">
+    <StatusContainer loading={loading} error={error} onRetry={loadAccounts}>
+      <div className="wallet-cards">
         {accounts.map((account) => (
           <WalletCard key={account.id} account={account} />
         ))}
       </div>
+    </StatusContainer>
   );
 };
 
