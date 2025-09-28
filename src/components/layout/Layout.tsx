@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+import Modal from '../shared/Modal';
+import AddWalletForm from '../add-wallet/AddWallet';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+type LayoutProps = {
+  children: React.ReactNode;
+  onWalletAdded: () => void;
+};
+
+const Layout: React.FC<LayoutProps> = ({ children, onWalletAdded }) => {
   const [activeItem, setActiveItem] = useState('Wallets');
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const navItems = ['Wallets', 'Prices', 'Peer2Peer', 'Activity', 'Settings'];
 
   const toggleSidebar = () => {
@@ -48,7 +56,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="main-content-header">
             <h1 className="main-content-title">{activeItem}</h1>
             {activeItem === 'Wallets' && (
-              <button className="add-wallet-button">
+              <button className="add-wallet-button" onClick={() => setModalOpen(true)}>
                 + Add new wallet
               </button>
             )}
@@ -59,6 +67,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </div>
+      <Modal isOpen={isModalOpen}>
+        <AddWalletForm onClose={() => setModalOpen(false)} onWalletAdded={onWalletAdded} />
+      </Modal>
     </>
   );
 };
