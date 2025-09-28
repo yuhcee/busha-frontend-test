@@ -50,7 +50,7 @@ const WalletCard: React.FC<WalletCardProps> = ({ account }) => {
         </div>
         <span className="wallet-name">{account.name}</span>
         <span className="wallet-balance">
-          {formattedBalance} {account.currency}
+          {account.currency === 'NGN' ? `₦${formattedBalance}` : `${formattedBalance} ${account.currency}`}
         </span>
         <div className="chevron-container">
           <img src="/caret.svg" alt="details" className="chevron-icon" />
