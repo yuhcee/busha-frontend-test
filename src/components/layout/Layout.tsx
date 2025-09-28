@@ -57,7 +57,8 @@ const Layout: React.FC<LayoutProps> = ({ children, onWalletAdded }) => {
             <h1 className="main-content-title">{activeItem}</h1>
             {activeItem === 'Wallets' && (
               <button className="add-wallet-button" onClick={() => setModalOpen(true)}>
-                + Add new wallet
+                <span className="add-wallet-icon">+</span>
+                <span className="add-wallet-text">Add new wallet</span>
               </button>
             )}
           </div>
