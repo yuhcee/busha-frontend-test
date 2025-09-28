@@ -1,8 +1,12 @@
+@import './styles/Layout.scss';
+@import './styles/AccountList.scss';
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 code {
