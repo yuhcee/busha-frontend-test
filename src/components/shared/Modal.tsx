@@ -53,4 +53,8 @@ const ModalContent = styled.div`
   bottom: 0%;
   background: #ffffff;
   overflow-y: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
