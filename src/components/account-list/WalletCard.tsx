@@ -10,9 +10,10 @@ type Account = {
 
 type WalletCardProps = {
   account: Account;
+  onClick: (account: Account) => void;
 };
 
-const WalletCard: React.FC<WalletCardProps> = ({ account }) => {
+const WalletCard: React.FC<WalletCardProps> = ({ account, onClick }) => {
   const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.onerror = null;
     let fallbackSrc = '';
@@ -43,7 +44,7 @@ const WalletCard: React.FC<WalletCardProps> = ({ account }) => {
       : account.balance;
 
   return (
-    <div className="wallet-card">
+    <div className="wallet-card" onClick={() => onClick(account)}>
       <div className="wallet-content">
         <div className="coin-symbol-container">
           <img src={account.imgURL} alt={account.name} onError={handleImageError} />
