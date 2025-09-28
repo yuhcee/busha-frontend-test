@@ -47,17 +47,23 @@ const AccountList = () => {
   }, []);
 
   if (loading) {
-    return <Loader size={84} width={8} />;
+    return (
+      <div className="status-container">
+        <Loader size={84} width={8} />
+      </div>
+    );
   }
 
   if (error) {
     return (
-      <div className="account-list-error">
-        <img src="/error-icon.svg" alt="Error Icon" className="error-icon" />
-        <div className="error-message">{error}</div>
-        <button className="try-again-button" onClick={loadAccounts}>
-          Try again
-        </button>
+      <div className="status-container">
+        <div className="account-list-error">
+          <img src="/error-icon.svg" alt="Error Icon" className="error-icon" />
+          <div className="error-message">{error}</div>
+          <button className="try-again-button" onClick={loadAccounts}>
+            Try again
+          </button>
+        </div>
       </div>
     );
   }
