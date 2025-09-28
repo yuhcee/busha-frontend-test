@@ -1,11 +1,13 @@
+@import './styles/Layout.scss';
+@import './styles/AccountList.scss';
+@import './styles/StatusContainer.scss';
+@import './styles/AddWallet.scss';
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
-@import './styles/Layout.scss';
-@import './styles/AccountList.scss';
 
 body {
   margin: 0;
