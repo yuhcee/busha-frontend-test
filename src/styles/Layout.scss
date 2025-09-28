@@ -130,6 +130,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 0 24px;
 }
 
 .main-content-title {
@@ -157,6 +158,38 @@
   display: flex;
   align-items: center;
   padding: 0;
+  margin-right: 16px; 
+  gap: 8px;
+}
+
+.add-wallet-icon {
+  display: inline;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .add-wallet-text {
+    display: none; 
+  }
+
+  .add-wallet-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background-color: #E5E7EB;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1F2937;
+  }
+
+  .add-wallet-button {
+    margin-right: 0;
+    gap: 0;
+  }
 }
 
 .title-divider {
@@ -209,7 +242,7 @@
   }
 
   .main-content {
-    padding: 16px;
+    padding: 16px 0;
   }
 
   .layout {
