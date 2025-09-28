@@ -1,7 +1,8 @@
-@import './styles/Layout.scss';
-@import './styles/AccountList.scss';
-@import './styles/StatusContainer.scss';
-@import './styles/AddWallet.scss';
+@use './styles/Layout.scss';
+@use './styles/AccountList.scss';
+@use './styles/StatusContainer.scss';
+@use './styles/AddWallet.scss';
+@use './styles/WalletDetail.scss';
 
 *,
 *::before,
