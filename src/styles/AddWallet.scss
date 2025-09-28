@@ -38,20 +38,26 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  align-items: center;
 }
 
 .select-label {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: -16px;
+  width: 392px;
 }
 
 .wallet-select {
   width: 392px;
-  height: 64px;
-  padding: 8px 20px 8px 8px;
+  height: 48px;
+  padding: 4px 30px 4px 12px;
   border: 1px solid #CBD2D9;
   border-radius: 8px;
+  font-family: 'Aribau Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
 }
 
 .create-wallet-btn {
@@ -65,9 +71,52 @@
   border-radius: 27px;
   cursor: pointer;
   align-self: center;
+  margin-bottom: 18px;
 }
 
-.create-error-message {
+.create-error-container {
+  width: 392px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFF4F4;
+  border: 1px solid #E0B3B2;
+  border-radius: 8px;
+  padding: 13px 20px;
+  margin: 0 auto;
+}
+
+.error-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.error-icon-small {
+  width: 24px;
+  height: 24px;
+}
+
+.create-error-text {
   color: red;
-  font-size: 14px;
+  font-weight: 500;
+}
+
+.error-close-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .select-label,
+  .wallet-select,
+  .create-error-container {
+    width: 100%;
+  }
 }
