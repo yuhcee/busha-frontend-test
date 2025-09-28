@@ -6,6 +6,11 @@ type Account = {
   balance: string;
   name: string;
   imgURL: string;
+  hold: string;
+  pending_balance: string;
+  type: string;
+  deposit: boolean;
+  payout: boolean;
 };
 
 type WalletCardProps = {
