@@ -2,31 +2,42 @@ import React, { useState } from 'react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [activeItem, setActiveItem] = useState('Wallets');
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navItems = ['Wallets', 'Prices', 'Peer2Peer', 'Activity', 'Settings'];
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
 
   return (
     <>
       <div className="top-navbar">
         <div className="top-navbar-content">
           <div className="logo-section">
+            <button className="hamburger-menu" onClick={toggleSidebar}>
+              &#9776;
+            </button>
             <img src="busha-logo-green.svg" alt="Busha Logo" />
           </div>
           <div className="user-profile">
             <div className="avatar">
               <span>O</span>
             </div>
-            <span>Oluwatobi Akindunjoye</span>
+            <span className="user-name">Oluwatobi Akindunjoye</span>
           </div>
         </div>
       </div>
       <div className="layout">
-        <div className="sidebar">
+        <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
           <div className="nav-items">
             {navItems.map((item) => (
               <button
                 key={item}
                 className={`nav-item ${activeItem === item ? 'active' : ''}`}
-                onClick={() => setActiveItem(item)}
+                onClick={() => {
+                  setActiveItem(item);
+                  setSidebarOpen(false);
+                }}
               >
                 {item}
               </button>
