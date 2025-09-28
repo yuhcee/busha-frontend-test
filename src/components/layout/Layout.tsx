@@ -34,9 +34,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         <div className="main-content">
-          <h1 className="main-content-title">{activeItem}</h1>
+          <div className="main-content-header">
+            <h1 className="main-content-title">{activeItem}</h1>
+            {activeItem === 'Wallets' && (
+              <button className="add-wallet-button">
+                + Add new wallet
+              </button>
+            )}
+          </div>
+          <div className="title-divider"></div>
           <div className="main-content-body">
-            {children}
+            {activeItem === 'Wallets' ? children : null}
           </div>
         </div>
       </div>

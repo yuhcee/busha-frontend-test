@@ -118,10 +118,17 @@ font-size: 16px;
   flex: 1;
   height: 100%;
   background-color: #FFFFFF;
-  padding: 16px 24px;
+  padding: 16px 0 16px 24px;
   align-items: flex-start; /* Align content to the start */
   justify-content: flex-start;
   box-sizing: border-box;
+}
+
+.main-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .main-content-title {
@@ -131,7 +138,31 @@ font-size: 16px;
   line-height: 32px;
   letter-spacing: 0%;
   color: #1F2937;
-  margin: 0 0 24px 0;
+  margin: 0;
+}
+
+.add-wallet-button {
+  width: fit-content;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  font-family: 'Aribau Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.title-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #E5E7EB;
+  margin: 6px 0;
 }
 
 .main-content-body {
@@ -140,5 +171,5 @@ font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 80px;
+  padding-top: 20px;
 }
