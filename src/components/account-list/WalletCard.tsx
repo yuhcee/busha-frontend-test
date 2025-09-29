@@ -45,7 +45,10 @@ const WalletCard: React.FC<WalletCardProps> = ({ account, onClick }) => {
 
   const formattedBalance =
     account.currency === 'NGN'
-      ? parseInt(account.balance, 10).toLocaleString('en-US')
+      ? parseFloat(account.balance).toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
       : account.balance;
 
   return (
