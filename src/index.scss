@@ -8,13 +8,18 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  font-family: inherit;
+}
+
+html {
+  font-family: 'AribauGrotesk-Regular', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
-  font-family: 'AribauGrotesk-Regular', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font: inherit;
 }
 
 code {
