@@ -1,85 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import StatusContainer from '../shared/StatusContainer';
-
-type Wallet = {
-  currency: string;
-  name: string;
-  type: string;
-  imgURL: string;
-};
+import { useWallets, useAddAccount } from '../../hooks/useAccounts';
 
 type AddWalletProps = {
   onClose: () => void;
-  onWalletAdded: () => void;
 };
 
-const fetchWallets = async (): Promise<Wallet[]> => {
-  const response = await fetch('http://localhost:3090/wallets');
-  if (!response.ok) {
-    throw new Error('Network error');
-  }
-  return response.json();
-};
-
-const createAccount = async (currency: string): Promise<void> => {
-  const response = await fetch('http://localhost:3090/accounts', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ currency }),
-  });
-  if (!response.ok) {
-    throw new Error('Network Error');
-  }
-};
-
-const AddWalletForm: React.FC<AddWalletProps> = ({ onClose, onWalletAdded }) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [wallets, setWallets] = useState<Wallet[]>([]);
+const AddWalletForm: React.FC<AddWalletProps> = ({ onClose }) => {
+  const { data: wallets, isLoading, error, refetch } = useWallets();
+  const addAccountMutation = useAddAccount();
   const [selectedCurrency, setSelectedCurrency] = useState<string>('');
-  const [isCreating, setIsCreating] = useState(false);
-  const [createError, setCreateError] = useState<string | null>(null);
-
-  const loadWallets = () => {
-    setLoading(true);
-    setError(null);
-    fetchWallets()
-      .then((data) => {
-        setWallets(data);
-        if (data.length > 0) {
-          setSelectedCurrency(data[0].currency);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  };
 
   useEffect(() => {
-    loadWallets();
-  }, []);
+    if (wallets && wallets.length > 0) {
+      setSelectedCurrency(wallets[0].currency);
+    }
+  }, [wallets]);
 
   const handleCreateWallet = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsCreating(true);
-    setCreateError(null);
-    try {
-      await createAccount(selectedCurrency);
-      onWalletAdded();
-      onClose();
-    } catch (err: any) {
-      setCreateError(err.message);
-    } finally {
-      setIsCreating(false);
-    }
+    addAccountMutation.mutate(selectedCurrency, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
   };
 
   return (
-    <StatusContainer loading={loading} error={error} onRetry={loadWallets}>
+    <StatusContainer loading={isLoading} error={error as string | null} onRetry={refetch}>
       <div className="add-wallet-modal">
         <div className="modal-header">
           <h3>Add new wallet</h3>
@@ -96,22 +44,22 @@ const AddWalletForm: React.FC<AddWalletProps> = ({ onClose, onWalletAdded }) => 
             onChange={(e) => setSelectedCurrency(e.target.value)}
             className="wallet-select"
           >
-            {wallets.map((wallet) => (
+            {wallets?.map((wallet) => (
               <option key={wallet.currency} value={wallet.currency}>
                 {wallet.name}
               </option>
             ))}
           </select>
-          <button type="submit" disabled={isCreating} className="create-wallet-btn">
-            {isCreating ? 'Creating...' : 'Create wallet'}
+          <button type="submit" disabled={addAccountMutation.isLoading} className="create-wallet-btn">
+            {addAccountMutation.isLoading ? 'Creating...' : 'Create wallet'}
           </button>
-          {createError && (
+          {addAccountMutation.isError && (
             <div className="create-error-container">
               <div className="error-content">
                 <img src="/network-error.svg" alt="Error" className="error-icon-small" />
-                <span className="create-error-text">{createError}</span>
+                <span className="create-error-text">{(addAccountMutation.error as Error).message}</span>
               </div>
-              <button onClick={() => setCreateError(null)} className="error-close-btn">&times;</button>
+              <button onClick={() => addAccountMutation.reset()} className="error-close-btn">&times;</button>
             </div>
           )}
         </form>
