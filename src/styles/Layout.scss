@@ -14,7 +14,7 @@
 
 .top-navbar {
   display: flex;
-  justify-content: center; /* Center the content wrapper */
+  justify-content: center; 
   align-items: center;
   position: fixed;
   top: 0;
@@ -33,8 +33,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1200px; /* Match the layout's max-width */
-}
+  max-width: 1200px; 
 
 .logo-section {
   display: flex;
@@ -45,7 +44,7 @@
 }
 
 .logo-section img {
-  width: 121px; /* Significantly larger logo */
+  width: 121px; 
   height: 28px;
 }
 
