@@ -20,7 +20,7 @@ export type Wallet = {
     imgURL: string;
 };
 
-const BASEURL = 'http://localhost:3090';
+const BASEURL = import.meta.env.VITE_BASEURL || "http://localhost:3090";
 
 const fetchAccounts = async (): Promise<Account[]> => {
     const response = await fetch(`${BASEURL}/accounts`);
