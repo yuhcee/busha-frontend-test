@@ -4,10 +4,9 @@ import AddWalletForm from '../add-wallet/AddWallet';
 
 type LayoutProps = {
   children: React.ReactNode;
-  onWalletAdded: () => void;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, onWalletAdded }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [activeItem, setActiveItem] = useState('Wallets');
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -69,7 +68,7 @@ const Layout: React.FC<LayoutProps> = ({ children, onWalletAdded }) => {
         </div>
       </div>
       <Modal isOpen={isModalOpen}>
-        <AddWalletForm onClose={() => setModalOpen(false)} onWalletAdded={onWalletAdded} />
+        <AddWalletForm onClose={() => setModalOpen(false)} />
       </Modal>
     </>
   );
