@@ -33,7 +33,7 @@ const WalletCard: React.FC<WalletCardProps> = ({ account, onClick }) => {
         fallbackSrc = '/ethereum.svg';
         break;
       case 'stellar':
-        fallbackSrc = '/litecoin.svg';
+        fallbackSrc = '/stellar.svg';
         break;
       default:
         break;
